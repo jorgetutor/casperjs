@@ -53,7 +53,7 @@ casper.thenChangeViewport = function (size) {
     } else if (size === 'desktop') {
       this.viewport(1280, 1280);
     } else {
-      test.fail('Responsive Check Not Properly Defined')
+      test.fail('Responsive Check Not Properly Defined');
     }
   });
 };
