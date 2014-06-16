@@ -52,16 +52,28 @@ function drush_casperjs($tests = NULL) {
   }
 
   // Add include files.
-  $command .= ' --includes=' . drush_escapeshellarg(dirname(__FILE__) . '/includes/common.js,' . dirname(__FILE__) . '/includes/session.js');
-  $command .= ' --pre=' . drush_escapeshellarg(dirname(__FILE__) . '/includes/pre-test.js');
-  $command .= ' --post=' . drush_escapeshellarg(dirname(__FILE__) . '/includes/post-test.js');
+  $command .= ' --includes='
+    . drush_escapeshellarg(dirname(__FILE__) . '/includes/common.js,'
+    . drush_escapeshellarg(dirname(__FILE__) . '/includes/session.js'));
+
   if ($includes = drush_get_option('includes')) {
     $command .= ',' . $includes;
   }
 
+  $command .= ' --pre='
+    . drush_escapeshellarg(dirname(__FILE__) . '/includes/pre-test.js');
+
+  $command .= ' --post='
+    . drush_escapeshellarg(dirname(__FILE__) . '/includes/post-test.js');
+
+  /*
+  if ($includes = drush_get_option('includes')) {
+    $command .= ',' . $includes;
+  }*/
+
   // Set the root where tests are. Defaults to the tests directory
   if (!$root = drush_get_option('test-root')) {
-    $root =  drush_get_context('DRUSH_DRUPAL_ROOT') . '/../tests';
+    $root = drush_get_context('DRUSH_DRUPAL_ROOT') . '/../tests';
   }
 
   // If a list of tests to run were passed, append them to the command.
