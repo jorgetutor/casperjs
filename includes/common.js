@@ -32,9 +32,22 @@ casper.setFilter('open.location', function(location) {
   if (utils.isUndefined(location)) {
     location = "";
   }
+
   var cleanPath = location.replace(/^\//, '');
-  return casper.cli.get('url') + '/' + cleanPath;
+  if (!casper.isUrlAbsolute(location)) {
+    return casper.cli.get('url') + '/' + cleanPath;
+  }
 });
+
+/**
+ * Checks if a URL is Absolute
+ * @param string str
+ * @returns {Boolean}
+ */
+casper.isUrlAbsolute = function(str) {
+  var pattern = new RegExp('^(https?:\/\/)');
+  return pattern.test(str);
+};
 
 /**
  * Set the viewport to a different breakpoint.
